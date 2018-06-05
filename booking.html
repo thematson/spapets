@@ -1,0 +1,79 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Awesome Pet Spa</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <form name="bookingform">
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="book-first">First name</label>
+                    <input type="text" class="form-control" id="book-first" placeholder="First name" value="Mark" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="book-last">Last name</label>
+                    <input type="text" class="form-control" id="book-last" placeholder="Last name" value="Otto" required>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefault03">City</label>
+                    <input type="text" class="form-control" id="book-city" placeholder="City" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationDefault04">State</label>
+                    <input type="text" class="form-control" id="book-state" placeholder="State" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationDefault05">Zip</label>
+                    <input type="text" class="form-control" id="book-zip" placeholder="Zip" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="exampleFormControlInput1">Telephone</label>
+                    <input type="text" class="form-control" name="telephone" id="book-phone" placeholder="5551234567" min="10" max="10" required>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="exampleFormControlInput1">Email address</label>
+                    <input type="email" class="form-control" id="book-email" placeholder="name@example.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Example select</label>
+                <select class="form-control" id="book-service">
+                    <option>Fast Bath</option>
+                    <option>Superstar Groom</option>
+                    <option>Stellar Day Spa</option>
+
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit"  onclick="phonenumber(document.bookingform.telephone)">Submit form</button>
+        </form>
+        </article>
+    </div>
+    <script src="booking.js"></script>
+    
+</body>
+
+</html>
