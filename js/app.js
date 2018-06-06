@@ -28,6 +28,8 @@ $('document').ready(function () {
 
   $('#cancelBtn').click(function () {
     $(".modal").find("input,textarea,select").val('').end();
+    $('#book-service').val(service);
+
 
   });
 
@@ -44,31 +46,18 @@ $('document').ready(function () {
   logoutBtn.click(logout);
 
 
-
-  //   $('#bath-btn').click(function () {
-  //     service = 'Fast Bath';
-  //     window.open('booking.html?service=' + service, '_self');
-  // });
-  // $('#groom-btn').click(function () {
-  //     service = 'Superstar Groom';
-  //     window.open('booking.html?service=' + service, '_self');
-
-  // });
-  // $('#day-btn').click(function () {
-  //     service = 'Stellar Day Spa';
-  //     window.open('booking.html?service=' + service, '_self');
-
-  // });
-
   $('#bath-btn').click(function () {
     console.log('clicked');
-    $('#book-service').val('Fast Bath - 45 Minute Service');
+    service = 'Fast Bath - 45 Minute Service';
+    $('#book-service').val(service);
   });
   $('#groom-btn').click(function () {
-    $('#book-service').val('Superstar Groom - 2 Hour Service');
+    service = 'Superstar Groom - 2 Hour Service';
+    $('#book-service').val(service);
   });
   $('#day-btn').click(function () {
-    $('#book-service').val('Stellar Day Spa - All-Day Service');
+    service = 'Stellar Day Spa - All Day Experience';
+    $('#book-service').val(service);
   });
 
   function setSession(authResult) {
@@ -125,26 +114,6 @@ $('document').ready(function () {
       // loginStatus.text('You are not logged in! Please log in to continue.');
     }
   }
-
-
-
-//   $("#bookingform").validate({
-//     rules: {
-//         email: {
-//             required: true,
-//             minlength: 8
-//         },
-//         pass: "required"
-//     },
-//     messages: {
-//         email: {
-//             required: "Please provide your Login",
-//             minlength: "Your Login must be at least 8 characters"
-//         },
-//         pass: "Please provide your password"
-//     }
-// });
-
 
 
 $(function () {
@@ -210,29 +179,38 @@ $(function () {
 
 
 
-$("#bookingform").on('submit', function(event) {
+$("#submitBtn").click(function(event) {
+  event.preventDefault();
       console.log("hello");
-
-
 
       var newBooking = {
         firstName: $("#book-first").val().trim(),
         lastName: $("#book-last").val().trim(),
+        street: $("#book-street").val().trim(),
         city: $("#book-city").val().trim(),
         state: $("#book-state").val().trim(),
         zip: $("#book-zip").val().trim(),
         telephone: $("#book-phone").val().trim(),
         email: $("#book-email").val().trim(),
+        petName: $("#book-pet").val().trim(),
+        breed: $("#book-breed").val().trim(),
+        service: $("#book-service").val().trim(),
+        date: $("#book-date").val().trim(),
+        time: $("#book-time").val().trim()
+
       };
+
+      
+      console.log(newBooking);
 
       var template_params = {
         "book_first": newBooking.firstName,
         "book_last": newBooking.lastName,
-        "book_service": "Spa",
+        "book_service": newBooking.servide,
         "book_email": newBooking.email,
         "book_phone": newBooking.telephone,
-        "book_pet": "Horus",
-        "book_breed": "Death Dog"
+        "book_pet": newBooking.petName,
+        "book_breed": newBooking.breed
      }
 
      var service_id = "outlook";
@@ -246,50 +224,14 @@ $("#bookingform").on('submit', function(event) {
 
       const mailOptions = {
         from: 'no-reply@kwpetspa.com', // sender address
-        to: 'eric.matson@superion.com', // list of receivers
+        to: ['eric.matson@gmail.com', 'matson@live.com'], // list of receivers
         subject: 'A new appointment has been made', // Subject line
         html: '<p>'+newBooking.firstName+'</p>'// plain text body
       };
-
-
-
-      console.log(newBooking);
-
-      // This line is the magic. It"s very similar to the standard ajax function we used.
-      // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-      // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-      // depending on if a tables is available or not.
-
-      // $.post("/api/tables", newBooking,
-      //   function (data) {
-
-      //     // If a table is available... tell user they are booked.
-      //     if (data) {
-      //       alert("Yay! You are officially booked!");
-      //     }
-
-      //     // If a table is available... tell user they on the waiting list.
-      //     else {
-      //       alert("Sorry you are on the wait list");
-      //     }
-
-      //     // Clear the form when submitting
-      //     $("#reserve-name").val("");
-      //     $("#reserve-phone").val("");
-      //     $("#reserve-email").val("");
-      //     $("#reserve-unique-id").val("");
-
-      //   });
+    // $("#bookingModal").modal('toggle');
     return false;
     });
 
-
-
-
   handleAuthentication();
-
-
-
-
 
 });
