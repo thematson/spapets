@@ -19,16 +19,47 @@
 </head>
 
 <body>
-    <div class="container">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Awesome PetSpa</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <a id="btn-home-view" class="btn btn-primary btn-margin navbutton" href="index.html">
+                    Home
+                </a>
+                <a id="btn-home-view" class="btn btn-primary btn-margin navbutton">
+                        Contact Us
+                    </a>
+              
+                <!-- <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                        <a class="nav-link splash-hider" onclick="document.getElementById('splashPage').style.visibility = 'hidden'"
+                          href="http://localhost:3000/login">Sign Up</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link splash-hider" href="login">Log In</a>
+                      </li>
+                    </ul> -->
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container" style="margin-top: 5rem;">
         <form name="bookingform">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="book-first">First name</label>
-                    <input type="text" class="form-control" id="book-first" placeholder="First name" value="Mark" required>
+                    <input type="text" class="form-control" name="book_name" id="book-first" placeholder="First name" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="book-last">Last name</label>
-                    <input type="text" class="form-control" id="book-last" placeholder="Last name" value="Otto" required>
+                    <input type="text" class="form-control" name="book_last" id="book-last" placeholder="Last name" required>
                 </div>
 
             </div>
@@ -50,30 +81,42 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="exampleFormControlInput1">Telephone</label>
-                    <input type="text" class="form-control" name="telephone" id="book-phone" placeholder="5551234567" min="10" max="10" required>
+                    <input type="text" class="form-control" name="book_phone" id="book-phone" placeholder="5551234567" min="10" max="10" required>
                 </div>
-                
+
                 <div class="col-md-6 mb-3">
                     <label for="exampleFormControlInput1">Email address</label>
-                    <input type="email" class="form-control" id="book-email" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" name="book_email" id="book-email" placeholder="name@example.com" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Example select</label>
-                <select class="form-control" id="book-service">
+                <select class="form-control" name="book_service" id="book-service">
                     <option>Fast Bath</option>
                     <option>Superstar Groom</option>
                     <option>Stellar Day Spa</option>
 
                 </select>
             </div>
-            <button class="btn btn-primary" type="submit"  onclick="phonenumber(document.bookingform.telephone)">Submit form</button>
+            <button class="btn btn-primary submit" type="submit" onclick="submitButton()">Submit Form</button>
         </form>
         </article>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/auth0-js/build/auth0.js"></script>
+    <script src="auth0-variables.js"></script>
+    <script src="app.js"></script>
     <script src="booking.js"></script>
-    
+
 </body>
 
 </html>
