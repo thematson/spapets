@@ -26,6 +26,11 @@ $('document').ready(function () {
   var loginBtn = $('#qsLoginBtn');
   var logoutBtn = $('#qsLogoutBtn');
 
+  $('#cancelBtn').click(function () {
+    $(".modal").find("input,textarea,select").val('').end();
+
+  });
+
   homeViewBtn.click(function () {
     homeView.css('display', 'inline-block');
     loginView.css('display', 'none');
@@ -120,7 +125,8 @@ $('document').ready(function () {
       // loginStatus.text('You are not logged in! Please log in to continue.');
     }
   }
-  
+
+
 
 //   $("#bookingform").validate({
 //     rules: {
@@ -141,6 +147,65 @@ $('document').ready(function () {
 
 
 
+$(function () {
+  // IMPORTANT: Fill in your client key
+  var clientKey = "js-1opG2LjSPzq8vnZVFToqq6lwvt8u4XdASaRbFtf42iFuLXA4ZtBPyTdbmrRR8AAp";
+
+  var cache = {};
+  var container = $("#bookingContainer");
+  var errorDiv = container.find("div.text-error");
+
+  /** Handle successful response */
+  function handleResp(data) {
+    // Check for error
+    if (data.error_msg)
+      errorDiv.text(data.error_msg);
+    else if ("city" in data) {
+      // Set city and state
+      container.find("input[name='city']").val(data.city);
+      container.find("input[name='state']").val(data.state);
+    }
+  }
+
+  // Set up event handlers
+  container.find("input[name='zipcode']").on("keyup change", function () {
+    // Get zip code
+    var zipcode = $(this).val().substring(0, 5);
+    if (zipcode.length == 5 && /^[0-9]+$/.test(zipcode)) {
+      // Clear error
+      errorDiv.empty();
+
+      // Check cache
+      if (zipcode in cache) {
+        handleResp(cache[zipcode]);
+      } else {
+        // Build url
+        var url = "https://www.zipcodeapi.com/rest/" + clientKey + "/info.json/" + zipcode + "/radians";
+
+        // Make AJAX request
+        $.ajax({
+          "url": url,
+          "dataType": "json"
+        }).done(function (data) {
+          handleResp(data);
+
+          // Store in cache
+          cache[zipcode] = data;
+        }).fail(function (data) {
+          if (data.responseText && (json = $.parseJSON(data.responseText))) {
+            // Store in cache
+            cache[zipcode] = json;
+
+            // Check for error
+            if (json.error_msg)
+              errorDiv.text(json.error_msg);
+          } else
+            errorDiv.text('Request failed.');
+        });
+      }
+    }
+  }).trigger("change");
+});
 
 
 
@@ -157,7 +222,7 @@ $("#bookingform").on('submit', function(event) {
         state: $("#book-state").val().trim(),
         zip: $("#book-zip").val().trim(),
         telephone: $("#book-phone").val().trim(),
-        email: $("#book-email").val().trim(),    
+        email: $("#book-email").val().trim(),
       };
 
       var template_params = {
@@ -169,11 +234,11 @@ $("#bookingform").on('submit', function(event) {
         "book_pet": "Horus",
         "book_breed": "Death Dog"
      }
-     
+
      var service_id = "outlook";
      var template_id = "appointment_owner";
      emailjs.send(service_id,template_id,template_params)
-     .then(function(){ 
+     .then(function(){
     	console.log("Sent!");
     }, function(err) {
        console.log("Send email failed!\r\n Response:\n " + JSON.stringify(err));
@@ -187,43 +252,43 @@ $("#bookingform").on('submit', function(event) {
       };
 
 
-    
+
       console.log(newBooking);
-    
+
       // This line is the magic. It"s very similar to the standard ajax function we used.
       // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
       // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
       // depending on if a tables is available or not.
-    
+
       // $.post("/api/tables", newBooking,
       //   function (data) {
-    
+
       //     // If a table is available... tell user they are booked.
       //     if (data) {
       //       alert("Yay! You are officially booked!");
       //     }
-    
+
       //     // If a table is available... tell user they on the waiting list.
       //     else {
       //       alert("Sorry you are on the wait list");
       //     }
-    
+
       //     // Clear the form when submitting
       //     $("#reserve-name").val("");
       //     $("#reserve-phone").val("");
       //     $("#reserve-email").val("");
       //     $("#reserve-unique-id").val("");
-    
+
       //   });
     return false;
     });
-    
-    
+
+
 
 
   handleAuthentication();
 
-  
+
 
 
 
